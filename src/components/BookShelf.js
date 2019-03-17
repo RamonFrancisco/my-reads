@@ -1,17 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Book from './Book';
 
-export default function BookShelf(props) {
+const BookShelf = (props) => {
 	
-	// const [books, setBooks] = useState([]);
+	// console.log('props', props)
+	
+	const { shelfs, books, moveShelf } = props;
 	
 	return (
-		<div className="bookshelf" >
-			<h2 className="bookshelf-title">{props.title}</h2>
-			<div className="bookshelf-books">
-				<Book shelf={props.title} books={props.books} />
+		shelfs.map( shelf => (
+		
+			<div className="bookshelf" >
+				<h2 className="bookshelf-title">{shelf.title}</h2>
+				<div className="bookshelf-books">
+					<ol className="books-grid">
+						{ books.filter( book => shelf.value.split(' ').join('') === book.shelf)
+						  .map( book => (
+							<li key={book.id}>
+								<Book 
+									shelfs={ shelfs }
+									shelfValue={shelf.value}
+									book={ book }
+									moveShelf={ moveShelf } />
+							
+							</li>
+						  )
+						)}
+					</ol>
+				</div>
 			</div>
-		</div>
+		))
 	);
 	
 }
+
+export default BookShelf;

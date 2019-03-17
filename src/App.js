@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './utils/BooksAPI';
 import Search from './components/Search';
 import ListBook from './components/ListBooks';
 import './App.css'
 
-export default function BooksApp(props) {
+const BooksApp = (props) => {
+	
+	const shelfs = [
+		{
+			value: 'currentlyReading',
+			title: 'Currently Reading'
+		},
+		{
+			value: 'wantToRead',
+			title: 'Want to Read'
+		},
+		{
+			value: 'read',
+			title: 'Read'
+		},
+	]
 	
 	const [books, setBooks] = useState([]);
-	const [shelfs, setShelfs] = useState([]);
 	
-	const [showSearchPage, setShowSearchPage ] = useState(false);
+	const [showSearchPage, setShowSearchPage ] = useState(true);
 	
 	/**
 	* TODO: Instead of using this state variable to keep track of which page
@@ -20,19 +34,29 @@ export default function BooksApp(props) {
 	
 	useEffect(() => {
 		BooksAPI.getAll()
-		.then( books => {
-			setBooks( books )
-		})
-		
-	}) 
+		.then( books => setBooks( books ) )
+	});
+	 
+	const moveShelf = (book, shelf) => {
+		BooksAPI.update(book, shelf)
+			.then( useEffect )
+	} 
 	
 	return (
 		<div className="app">
 			{showSearchPage ? (
-				<Search />
+				<Search 
+					books={ books }
+					moveShelf={ moveShelf }
+					shelfs={ shelfs } />
 			) : (
-				<ListBook books={ books } />
+				<ListBook 
+					books={ books }
+					shelfs={ shelfs }
+					moveShelf={ moveShelf } />
 			)}
 		</div>
 	)
 }
+
+export default BooksApp;

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BookShelf from './BookShelf';
 
-export default function ListBooks(props){
+const ListBooks = (props) => {	
 	
 	return (
 		<div className="list-books">
@@ -10,9 +10,10 @@ export default function ListBooks(props){
 			</div>
 			<div className="list-books-content">
 				<div>
-					<BookShelf books={props.books} title="currently Reading" />
-					<BookShelf books={props.books} title="want To Read" />
-					<BookShelf books={props.books} title="read" />
+					<BookShelf
+						books={props.books}
+						shelfs={ props.shelfs }
+						moveShelf={ props.moveShelf }  />
 				</div>
 			</div>
 			<div className="open-search">
@@ -21,3 +22,5 @@ export default function ListBooks(props){
 	  </div>
 	);
 }
+
+export default ListBooks;
