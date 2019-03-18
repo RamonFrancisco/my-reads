@@ -13,15 +13,15 @@ const Book = (props) => {
 					height: 193,
 					backgroundImage: `url("${book.imageLinks.thumbnail}")` }}>
 				</div>
-				<div className="book-shelf-changer">
+				<div className="book-shelf-changer">	
 					<SelectShelf 
 						shelfs={ shelfs }
 						value={ book.shelf }
 						id={ book }
 						moveShelf={ moveShelf } />
 				</div>
-				</div>
-			<div className="book-title">{book.title}</div>
+			</div>
+			<div className="book-title">book.title</div>
 			{book.authors.map(author => <div key={author} className="book-authors">{author}</div>)}
 		</div>
 	);
