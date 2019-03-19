@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI';
 import Search from './components/Search';
 import ListBook from './components/ListBooks';
+import NotFound from './components/NotFound/NotFound'
 import './App.css'
 
 const BooksApp = (props) => {
@@ -47,7 +48,10 @@ const BooksApp = (props) => {
 					books={ books }
 					moveShelf={ moveShelf }
 					shelfs={ shelfs } />
-			 )} />
+			)} />
+			 
+			<Route component={ NotFound } />
+			 
 		</div>
 	)
 }
