@@ -2,13 +2,14 @@ import React from 'react';
 import SelectShelf from './SelectShelf';
 
 const Book = (props) => {
-	
-	const { book, shelfs, moveShelf } = props;
+
+	const { book, shelfValue, shelfs, moveShelf } = props
 
 	const thumb = book.imageLinks !== undefined ? book.imageLinks.thumbnail : '',
-		title = book.title !== undefined ? book.title : 'No title',
-		authors =  book.authors || ['No authors'];
-
+	title = book.title || 'No title',
+	authors =  book.authors || ['No authors'], 
+	shelf = shelfValue !== undefined ? shelfValue : 'none' ;
+	
 	return (
 		<div className="book">
 			<div className="book-top">
@@ -20,7 +21,7 @@ const Book = (props) => {
 				<div className="book-shelf-changer">	
 					<SelectShelf 
 						shelfs={ shelfs }
-						value={ book.shelf }
+						value={ shelf }
 						id={ book }
 						moveShelf={ moveShelf } />
 				</div>
