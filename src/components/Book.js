@@ -5,13 +5,17 @@ const Book = (props) => {
 	
 	const { book, shelfs, moveShelf } = props;
 
+	const thumb = book.imageLinks !== undefined ? book.imageLinks.thumbnail : '',
+		title = book.title !== undefined ? book.title : 'No title',
+		authors =  book.authors || ['No authors'];
+
 	return (
 		<div className="book">
 			<div className="book-top">
 				<div className="book-cover" style={{
 					width: 128,
 					height: 193,
-					backgroundImage: `url("${book.imageLinks.thumbnail}")` }}>
+					backgroundImage: `url("${thumb}")` }}>
 				</div>
 				<div className="book-shelf-changer">	
 					<SelectShelf 
@@ -21,8 +25,8 @@ const Book = (props) => {
 						moveShelf={ moveShelf } />
 				</div>
 			</div>
-			<div className="book-title">book.title</div>
-			{book.authors.map(author => <div key={author} className="book-authors">{author}</div>)}
+			<div className="book-title">{title}</div>
+			{ authors.map(author => <div key={author} className="book-authors">{author}</div>)}
 		</div>
 	);
 }
