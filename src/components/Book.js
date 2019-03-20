@@ -1,9 +1,7 @@
 import React from 'react';
 import SelectShelf from './SelectShelf';
 
-const Book = (props) => {
-
-	const { book, shelfValue, shelfs, moveShelf } = props
+const Book = ({ book, shelfValue, shelfs, moveShelf }) => {
 
 	const thumb = book.imageLinks !== undefined ? book.imageLinks.thumbnail : '',
 	title = book.title || 'No title',

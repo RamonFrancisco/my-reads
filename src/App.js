@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI';
 import Search from './components/Search';
 import ListBook from './components/ListBooks';
@@ -37,20 +37,22 @@ const BooksApp = (props) => {
 	
 	return (
 		<div className="app">
-			<Route exact path="/" render={() => (
-				<ListBook 
-					books={ books }
-					shelfs={ shelfs }
-					moveShelf={ moveShelf } />
-			)} />
-			<Route path="/search" render={() => (
-				<Search 
-					books={ books }
-					moveShelf={ moveShelf }
-					shelfs={ shelfs } />
-			)} />
-			 
-			<Route component={ NotFound } />
+			<Switch>
+				<Route exact path="/" render={() => (
+					<ListBook 
+						books={ books }
+						shelfs={ shelfs }
+						moveShelf={ moveShelf } />
+				)} />
+				<Route path="/search" render={() => (
+					<Search 
+						books={ books }
+						moveShelf={ moveShelf }
+						shelfs={ shelfs } />
+				)} />
+				
+				<Route component={ NotFound } />
+			</Switch>
 			 
 		</div>
 	)
