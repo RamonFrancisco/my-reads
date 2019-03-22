@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from './BookShelf';
 
-const ListBooks = (props) => {	
+const ListBooks = ({books, shelfs, moveShelf, bookDetails}) => {	
 	
 	return (
 		<div className="list-books">
@@ -12,9 +12,10 @@ const ListBooks = (props) => {
 			<div className="list-books-content">
 				<div>
 					<BookShelf
-						books={props.books}
-						shelfs={ props.shelfs }
-						moveShelf={ props.moveShelf }  />
+						books={ books }
+						shelfs={ shelfs }
+						moveShelf={ moveShelf }
+						bookDetails={ bookDetails } />
 				</div>
 			</div>
 			<div className="open-search">

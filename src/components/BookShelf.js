@@ -1,12 +1,7 @@
 import React from 'react';
 import Book from './Book';
 
-const BookShelf = (props) => {
-	
-	// console.log('props', props)
-	
-	const { shelfs, books, moveShelf } = props;
-	
+const BookShelf = ({ shelfs, books, moveShelf, bookDetails }) => {
 	return (
 		shelfs.map( shelf => (
 		
@@ -15,16 +10,18 @@ const BookShelf = (props) => {
 				<div className="bookshelf-books">
 					<ol className="books-grid">
 						{ books.filter( book => shelf.value.split(' ').join('') === book.shelf)
-						  .map( book => (
-							<li key={book.id}>
-								<Book 
-									shelfs={ shelfs }
-									shelfValue={shelf.value}
-									book={ book }
-									moveShelf={ moveShelf } />
-							
-							</li>
-						  )
+							.map( book => (
+								<li key={ book.id }>
+									<Book 
+										shelfs={ shelfs }
+										shelfValue={shelf.value}
+										book={ book }
+										bookId={book.id}
+										moveShelf={ moveShelf }
+										bookDetails={ bookDetails } />
+								
+								</li>
+							)
 						)}
 					</ol>
 				</div>

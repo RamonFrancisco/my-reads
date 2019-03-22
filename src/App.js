@@ -3,7 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI';
 import Search from './components/Search';
 import ListBook from './components/ListBooks';
-import NotFound from './components/NotFound/NotFound'
+import NotFound from './components/NotFound/NotFound';
+import BookDetails from './components/BookDetails/BookDetails';
 import './App.css'
 
 const BooksApp = (props) => {
@@ -23,6 +24,8 @@ const BooksApp = (props) => {
 		},
 	]
 	
+
+	const [ book, setBook ] = useState({});
 	const [books, setBooks] = useState([]);
 	
 	useEffect(() => {
@@ -33,7 +36,12 @@ const BooksApp = (props) => {
 	const moveShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
 			.then( useEffect )
-	} 
+	}
+
+	const bookDetails = (id) => {
+		BooksAPI.get(id)
+			.then( data => setBook(data))
+	}
 	
 	return (
 		<div className="app">
@@ -42,13 +50,18 @@ const BooksApp = (props) => {
 					<ListBook 
 						books={ books }
 						shelfs={ shelfs }
-						moveShelf={ moveShelf } />
+						moveShelf={ moveShelf } 
+						bookDetails={ bookDetails } />
 				)} />
 				<Route path="/search" render={() => (
 					<Search 
 						books={ books }
 						moveShelf={ moveShelf }
 						shelfs={ shelfs } />
+				)} />
+
+				<Route path="/book" render={() => (
+					<BookDetails book={ book } />
 				)} />
 				
 				<Route component={ NotFound } />

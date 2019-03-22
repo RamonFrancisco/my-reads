@@ -2,7 +2,6 @@ import React from 'react';
 import Book from './Book';
 
 const BookGrid = (props) => {
-	
 	const { shelfs, books, moveShelf, shelf } = props;
  	
 	return (
@@ -13,7 +12,7 @@ const BookGrid = (props) => {
 						<li key={book.id}>
 							<Book 
 								shelfs={ shelfs }
-								shelfValue={shelf.value}
+								shelfValue={ shelf.value }
 								book={ book }
 								moveShelf={ moveShelf } />
 						</li>

@@ -1,13 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SelectShelf from './SelectShelf';
 
-const Book = ({ book, shelfValue, shelfs, moveShelf }) => {
+const Book = ({ book, shelfValue, shelfs, moveShelf, bookDetails }) => {
 
 	const thumb = book.imageLinks !== undefined ? book.imageLinks.thumbnail : '',
 	title = book.title || 'No title',
 	authors =  book.authors || ['No authors'], 
 	shelf = shelfValue !== undefined ? shelfValue : 'none' ;
-	
+
+	const getbook = ( id ) => {
+		// bookDetails(id);
+		console.log(id);
+	}
+
 	return (
 		<div className="book">
 			<div className="book-top">
@@ -19,12 +25,12 @@ const Book = ({ book, shelfValue, shelfs, moveShelf }) => {
 				<div className="book-shelf-changer">	
 					<SelectShelf 
 						shelfs={ shelfs }
-						value={ shelf }
+						shelfValue={ shelf }
 						id={ book }
 						moveShelf={ moveShelf } />
 				</div>
 			</div>
-			<div className="book-title">{title}</div>
+			<Link to="/book/" onClick={e => getbook(e)} className="book-title">{title}</Link>
 			{ authors.map(author => <div key={author} className="book-authors">{author}</div>)}
 		</div>
 	);

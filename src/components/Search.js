@@ -8,7 +8,7 @@ const Search = props => {
 	
 	const { shelfs, moveShelf } = props;
 	
-	const [ text, setText ] =useState('');
+	const [ text, setText ] = useState('');
 	const [ books, setBooks ] = useState([])
 	const [ query, setQuery ] = useState('')
 	
