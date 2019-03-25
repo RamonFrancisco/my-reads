@@ -4,12 +4,10 @@ import * as BooksAPI from '../utils/BooksAPI';
 import Book from './Book';
 import sortBy from 'sort-by';
 
-const Search = props => {
-	
-	const { shelfs, moveShelf } = props;
+const Search = ({shelfs, moveShelf, books}) => {
 	
 	const [ text, setText ] = useState('');
-	const [ books, setBooks ] = useState([])
+	const [ newBooks, setNewBooks ] = useState([])
 	const [ query, setQuery ] = useState('')
 	
 	const searchBook = newQuery => {
@@ -18,24 +16,17 @@ const Search = props => {
 		
 		if (newQuery === '' ) {
 			setText('');
-			setBooks([]);
-			return
+			return;
 		}
 		
-		if ( newQuery ) {
-			BooksAPI.search( newQuery )
-			.then( data => {
-				if( data !== undefined && data && !data.error ) {
-					data.sort( sortBy('title') )
-					setBooks( data )
-				} else {
-					setBooks( [] )  
+		if ( newQuery.length > 3 ) {
+			BooksAPI.search(query)
+			.then(data => {
+				if (data !== undefined && data && !data.error) {
+					data.sort(sortBy('title'))
+					setNewBooks(data);
 				}
-			})
-			.catch( err => {
-				console.log(err)
-				setBooks( [] )
-			} )
+			});
 		}
 	}
 	
@@ -53,14 +44,15 @@ const Search = props => {
 			</div>
 			<div className="search-books-results">
 				<ol className="books-grid">
-					{ ( books.length === 0 ) ? (
+					{(newBooks.length === 0 ) ? (
 						<p>{text}</p>
 					) : (
-						books.map( book => (
+						newBooks.map( book => (
 							<li key={book.id} >
 								<Book
 									book={ book }
 									shelfs={ shelfs }
+									shelfValue={ books.map(shelf => shelf ) }
 									moveShelf={ moveShelf }  />
 							</li>
 						))

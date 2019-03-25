@@ -1,7 +1,7 @@
 import React from 'react';
 import Book from './Book';
 
-const BookShelf = ({ shelfs, books, moveShelf, bookDetails }) => {
+const BookShelf = ({ shelfs, books, moveShelf }) => {
 	return (
 		shelfs.map( shelf => (
 		
@@ -16,10 +16,7 @@ const BookShelf = ({ shelfs, books, moveShelf, bookDetails }) => {
 										shelfs={ shelfs }
 										shelfValue={shelf.value}
 										book={ book }
-										bookId={book.id}
-										moveShelf={ moveShelf }
-										bookDetails={ bookDetails } />
-								
+										moveShelf={ moveShelf } />
 								</li>
 							)
 						)}

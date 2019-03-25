@@ -4,10 +4,9 @@ import * as BooksAPI from './utils/BooksAPI';
 import Search from './components/Search';
 import ListBook from './components/ListBooks';
 import NotFound from './components/NotFound/NotFound';
-import BookDetails from './components/BookDetails/BookDetails';
 import './App.css'
 
-const BooksApp = (props) => {
+const BooksApp = () => {
 	
 	const shelfs = [
 		{
@@ -24,23 +23,15 @@ const BooksApp = (props) => {
 		},
 	]
 	
-
-	const [ book, setBook ] = useState({});
 	const [books, setBooks] = useState([]);
 	
 	useEffect(() => {
-		BooksAPI.getAll()
-		.then( books => setBooks( books ) )
+		BooksAPI.getAll().then(books => setBooks( books ))
 	});
-	 
+
 	const moveShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
 			.then( useEffect )
-	}
-
-	const bookDetails = (id) => {
-		BooksAPI.get(id)
-			.then( data => setBook(data))
 	}
 	
 	return (
@@ -50,18 +41,13 @@ const BooksApp = (props) => {
 					<ListBook 
 						books={ books }
 						shelfs={ shelfs }
-						moveShelf={ moveShelf } 
-						bookDetails={ bookDetails } />
+						moveShelf={ moveShelf } />
 				)} />
 				<Route path="/search" render={() => (
 					<Search 
 						books={ books }
-						moveShelf={ moveShelf }
-						shelfs={ shelfs } />
-				)} />
-
-				<Route path="/book" render={() => (
-					<BookDetails book={ book } />
+						shelfs={ shelfs }
+						moveShelf={ moveShelf } />
 				)} />
 				
 				<Route component={ NotFound } />
