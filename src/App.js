@@ -27,7 +27,7 @@ const BooksApp = () => {
 	
 	useEffect(() => {
 		BooksAPI.getAll().then(books => setBooks( books ))
-	});
+	}, [books]);
 
 	const moveShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)

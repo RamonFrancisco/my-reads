@@ -14,7 +14,7 @@ const BookShelf = ({ shelfs, books, moveShelf }) => {
 								<li key={ book.id }>
 									<Book 
 										shelfs={ shelfs }
-										shelfValue={shelf.value}
+										shelfValue={ shelf.value }
 										book={ book }
 										moveShelf={ moveShelf } />
 								</li>

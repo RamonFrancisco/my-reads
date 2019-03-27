@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from '../utils/BooksAPI';
+import { findKey } from 'lodash';
 import Book from './Book';
 import sortBy from 'sort-by';
 
@@ -9,6 +10,17 @@ const Search = ({shelfs, moveShelf, books}) => {
 	const [ text, setText ] = useState('');
 	const [ newBooks, setNewBooks ] = useState([])
 	const [ query, setQuery ] = useState('')
+
+	const mergeBooks = findbooks => {
+		if (findbooks.error) return [];
+
+		return findbooks.map(book => {
+			let findObject = findKey(books, { id: book.id });
+			if (findObject) book.shelf = books[findObject].shelf;
+
+			return book;
+		});
+	}
 	
 	const searchBook = newQuery => {
 		if ( newQuery !== '' ) { setText('No results') };
@@ -21,6 +33,7 @@ const Search = ({shelfs, moveShelf, books}) => {
 		
 		if ( newQuery.length > 3 ) {
 			BooksAPI.search(query)
+			.then(mergeBooks)
 			.then(data => {
 				if (data !== undefined && data && !data.error) {
 					data.sort(sortBy('title'))
@@ -52,7 +65,7 @@ const Search = ({shelfs, moveShelf, books}) => {
 								<Book
 									book={ book }
 									shelfs={ shelfs }
-									shelfValue={ books.map(shelf => shelf ) }
+									shelfValue={ book.shelf }
 									moveShelf={ moveShelf }  />
 							</li>
 						))
