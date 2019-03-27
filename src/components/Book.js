@@ -4,8 +4,6 @@ import SelectShelf from './SelectShelf';
 const Book = ({ book, shelfValue, shelfs, moveShelf }) => {
 
 	const thumb = book.imageLinks !== undefined ? book.imageLinks.thumbnail : '',
-	title = book.title || 'No title',
-	authors =  book.authors || ['No authors'], 
 	shelf = shelfValue !== undefined ? shelfValue : 'none' ;
 
 	return (
@@ -24,8 +22,8 @@ const Book = ({ book, shelfValue, shelfs, moveShelf }) => {
 						moveShelf={ moveShelf } />
 				</div>
 			</div>
-			<div className="book-title">{title}</div>
-			{ authors.map(author => <div key={author} className="book-authors">{author}</div>)}
+			<div className="book-title">{book.title ? book.title : 'No title' }</div>
+			<div className="book-authors">{book.authors ? book.authors.join(', ') : 'No authors'}</div>
 		</div>
 	);
 }

@@ -12,7 +12,6 @@ const Search = ({shelfs, moveShelf, books}) => {
 	const [ query, setQuery ] = useState('')
 
 	const mergeBooks = findbooks => {
-		if (findbooks.error) return [];
 
 		return findbooks.map(book => {
 			let findObject = findKey(books, { id: book.id });
@@ -28,10 +27,11 @@ const Search = ({shelfs, moveShelf, books}) => {
 		
 		if (newQuery === '' ) {
 			setText('');
+			setNewBooks([]);
 			return;
 		}
 		
-		if ( newQuery.length > 3 ) {
+		if ( newQuery.length > 2 ) {
 			BooksAPI.search(query)
 			.then(mergeBooks)
 			.then(data => {

@@ -28,11 +28,12 @@ const BooksApp = () => {
 	useEffect(() => {
 		BooksAPI.getAll().then(books => setBooks( books ))
 	}, [books]);
-
+	
 	const moveShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
-			.then( useEffect )
+		.then(books)
 	}
+
 	
 	return (
 		<div className="app">
